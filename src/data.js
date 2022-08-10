@@ -20,4 +20,22 @@ export const sliderItems = [
         desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
         bg: "fbf0f4",
     },
-]
+];
+
+export const categories = [
+    {
+        id: 1,
+        img: "https://source.unsplash.com/400x300/?shirts",
+        title: "SHIRT STYLE!",
+    },
+    {
+        id: 2,
+        img: "https://source.unsplash.com/400x300/?cloths",
+        title: "LOUNGEWEAR LOVE",
+    },
+    {
+        id: 3,
+        img: "https://source.unsplash.com/400x300/?jackets",
+        title: "LIGHT JACKETS",
+    },
+];
