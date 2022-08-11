@@ -39,6 +39,7 @@ export const categories = [
         title: "LIGHT JACKETS",
     },
 ];
+
 export const products = [
     {
         id: 1,
