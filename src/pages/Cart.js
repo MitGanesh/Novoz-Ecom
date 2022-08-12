@@ -3,10 +3,15 @@ import styled from "styled-components"
 import Announcement from "../components/Announcement"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
+import { mobile } from "../reponsive"
 
 const Container = styled.div``
 const Wrapper = styled.div`
     padding: 20px;
+
+    ${mobile({
+        padding: '10px',
+    })}
 `
 const Title = styled.h1`
     font-weight: 300;
@@ -16,6 +21,7 @@ const Top = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 20px;
 `
 const TopButton = styled.button`
     padding: 10px;
@@ -25,7 +31,11 @@ const TopButton = styled.button`
     background-color : ${props => props.type === 'filled' ? 'black' : 'transparent'};
     color: ${props => props.type === 'filled' && 'white'};
 `
-const Toptexts = styled.div``
+const Toptexts = styled.div`
+    ${mobile({
+        display: 'none',
+    })}
+`
 const Toptext = styled.span`
     text-decoration: underline;
     cursor: pointer; 
@@ -34,6 +44,10 @@ const Toptext = styled.span`
 const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
+
+    ${mobile({
+        flexDirection: 'column',
+    })}
 `
 const Info = styled.div`
     flex: 3;
@@ -41,6 +55,10 @@ const Info = styled.div`
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
+
+    ${mobile({
+        flexDirection: 'column',
+    })}
 `
 const ProductDetails = styled.div`
     flex: 2;
@@ -86,10 +104,18 @@ const ProductAmmountContainer = styled.div`
 const ProductAmmount = styled.div`
     font-size: 24px;
     margin: 5px;
+
+    ${mobile({
+        margin: '5px 15px',
+    })}
 `
 const ProductPrice = styled.div`
     font-size: 30px;
     font-weight: 200;
+
+    ${mobile({
+        marginBottom: '20px',
+    })}
 `
 const Summary = styled.div`
   flex: 1;
@@ -145,7 +171,7 @@ const Cart = () => {
                             <ProductDetails>
                                 <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
                                 <Details>
-                                    <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
+                                    <ProductName><b>Product :</b> JESSIE THUNDER SHOES</ProductName>
                                     <ProductId><b>ID:</b> JTS541sm</ProductId>
                                     <ProductColor color="grey" />
                                     <ProductSize><b>Size:</b> 10</ProductSize>
@@ -167,7 +193,7 @@ const Cart = () => {
                             <ProductDetails>
                                 <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
                                 <Details>
-                                    <ProductName><b>Product:</b> HAKURA T-SHIRT</ProductName>
+                                    <ProductName><b>Product :</b> HAKURA T-SHIRT</ProductName>
                                     <ProductId><b>ID:</b> HAt541st</ProductId>
                                     <ProductColor color="darkgray" />
                                     <ProductSize><b>Size:</b> S</ProductSize>
