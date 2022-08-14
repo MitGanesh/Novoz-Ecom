@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Search, ShoppingCartOutlined, FavoriteBorderOutlined } from '@mui/icons-material'
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
     opacity: 0;
@@ -14,7 +15,6 @@ const Info = styled.div`
     justify-content: center;
     align-items: center;
 `
-
 const Container = styled.div`
     flex: 1;
     margin: 5px;
@@ -30,13 +30,10 @@ const Container = styled.div`
         opacity: 1;
     }
 `
-
 const Image = styled.img`
     height: 75%;
     z-index: 2;
 `
-
-
 const Icon = styled.div`
     width: 40px;
     height: 40px;
@@ -55,8 +52,9 @@ const Icon = styled.div`
     }
 `
 
-
 const Product = ({ item }) => {
+
+
     return (
         <Container>
             <Image src={item.img} />
@@ -65,7 +63,9 @@ const Product = ({ item }) => {
                     <ShoppingCartOutlined />
                 </Icon>
                 <Icon>
-                    <Search />
+                    <Link to={`/product/${item._id}`}>
+                        <Search />
+                    </Link>
                 </Icon>
                 <Icon>
                     <FavoriteBorderOutlined />

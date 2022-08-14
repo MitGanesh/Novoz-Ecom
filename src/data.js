@@ -27,23 +27,26 @@ export const categories = [
         id: 1,
         img: "https://source.unsplash.com/400x300/?shirts",
         title: "SHIRT STYLE!",
+        cat: "mens",
     },
     {
         id: 2,
         img: "https://source.unsplash.com/400x300/?cloths",
         title: "LOUNGEWEAR LOVE",
+        cat: "women",
     },
     {
         id: 3,
         img: "https://source.unsplash.com/400x300/?jackets",
         title: "LIGHT JACKETS",
+        cat: "casual",
     },
 ];
 
 export const products = [
     {
         id: 1,
-        img: "https://www.kindpng.com/picc/m/722-7226600_adams-check-shirt-mens-white-dress-shirt-with.png",
+        img: "https://png.pngitem.com/pimgs/s/130-1302708_transparent-purple-shirt-clipart-transparent-aesthetic-clothes-png.png",
     },
     {
         id: 2,
