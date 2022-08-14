@@ -4,14 +4,15 @@ import Announcement from "../components/Announcement"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { mobile } from "../reponsive"
+import { useSelector } from 'react-redux'
 
 const Container = styled.div``
 const Wrapper = styled.div`
     padding: 20px;
 
     ${mobile({
-        padding: '10px',
-    })}
+    padding: '10px',
+})}
 `
 const Title = styled.h1`
     font-weight: 300;
@@ -33,8 +34,8 @@ const TopButton = styled.button`
 `
 const Toptexts = styled.div`
     ${mobile({
-        display: 'none',
-    })}
+    display: 'none',
+})}
 `
 const Toptext = styled.span`
     text-decoration: underline;
@@ -46,8 +47,8 @@ const Bottom = styled.div`
     justify-content: space-between;
 
     ${mobile({
-        flexDirection: 'column',
-    })}
+    flexDirection: 'column',
+})}
 `
 const Info = styled.div`
     flex: 3;
@@ -57,8 +58,8 @@ const Product = styled.div`
     justify-content: space-between;
 
     ${mobile({
-        flexDirection: 'column',
-    })}
+    flexDirection: 'column',
+})}
 `
 const ProductDetails = styled.div`
     flex: 2;
@@ -79,7 +80,7 @@ const ProductColor = styled.div`
     height: 20px;
     border-radius: 50%;
     background-color: ${props => props.color};
-    `
+`
 const ProductId = styled.span``
 const ProductSize = styled.span``
 const PriceDetails = styled.div`
@@ -88,13 +89,13 @@ const PriceDetails = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    `
+`
 
 const Hr = styled.hr`
     background-color: #eee;
     border: none;
     height: 1px;
-    `
+`
 
 const ProductAmmountContainer = styled.div`
     display: flex;
@@ -106,16 +107,16 @@ const ProductAmmount = styled.div`
     margin: 5px;
 
     ${mobile({
-        margin: '5px 15px',
-    })}
+    margin: '5px 15px',
+})}
 `
 const ProductPrice = styled.div`
     font-size: 30px;
     font-weight: 200;
 
     ${mobile({
-        marginBottom: '20px',
-    })}
+    marginBottom: '20px',
+})}
 `
 const Summary = styled.div`
   flex: 1;
@@ -136,9 +137,7 @@ const SummaryItem = styled.div`
   font-weight: ${(props) => props.type === "total" && "500"};
   font-size: ${(props) => props.type === "total" && "24px"};
 `;
-
 const SummaryItemText = styled.span``;
-
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
@@ -151,6 +150,8 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+    const cart = useSelector(state => state.cart)
+
     return (
         <Container>
             <Navbar />
@@ -160,72 +161,57 @@ const Cart = () => {
                 <Top>
                     <TopButton>CONTINUE SHOPPING</TopButton>
                     <Toptexts>
-                        <Toptext>Shopping Bag(2)</Toptext>
+                        <Toptext>Shopping Bag({cart.quantity})</Toptext>
                         <Toptext>Your Whishlist(0)</Toptext>
                     </Toptexts>
                     <TopButton type="filled">CHECKOUT NOW</TopButton>
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
-                            <ProductDetails>
-                                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                                <Details>
-                                    <ProductName><b>Product :</b> JESSIE THUNDER SHOES</ProductName>
-                                    <ProductId><b>ID:</b> JTS541sm</ProductId>
-                                    <ProductColor color="grey" />
-                                    <ProductSize><b>Size:</b> 10</ProductSize>
-                                </Details>
-                            </ProductDetails>
-                            <PriceDetails>
-                                <ProductAmmountContainer>
-                                    <Add />
-                                    <ProductAmmount>2</ProductAmmount>
-                                    <Remove />
-                                </ProductAmmountContainer>
-                                <ProductPrice>
-                                    $35
-                                </ProductPrice>
-                            </PriceDetails>
-                        </Product>
-                        <Hr />
-                        <Product>
-                            <ProductDetails>
-                                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
-                                <Details>
-                                    <ProductName><b>Product :</b> HAKURA T-SHIRT</ProductName>
-                                    <ProductId><b>ID:</b> HAt541st</ProductId>
-                                    <ProductColor color="darkgray" />
-                                    <ProductSize><b>Size:</b> S</ProductSize>
-                                </Details>
-                            </ProductDetails>
-                            <PriceDetails>
-                                <ProductAmmountContainer>
-                                    <Add />
-                                    <ProductAmmount>1</ProductAmmount>
-                                    <Remove />
-                                </ProductAmmountContainer>
-                                <ProductPrice>$ 20</ProductPrice>
-                            </PriceDetails>
-                        </Product>
+                        {cart.products.map(item => (
+                            <div>
+                                <Product>
+                                    <ProductDetails>
+                                        <Image src={item.img} />
+                                        <Details>
+                                            <ProductName><b>Product :</b> {item.title}</ProductName>
+                                            <ProductId><b>ID:</b> {item._id}</ProductId>
+                                            <ProductColor color={item.color} />
+                                            <ProductSize><b>Size:</b> {item.size}</ProductSize>
+                                        </Details>
+                                    </ProductDetails>
+                                    <PriceDetails>
+                                        <ProductAmmountContainer>
+                                            <Add />
+                                            <ProductAmmount>{item.qty}</ProductAmmount>
+                                            <Remove />
+                                        </ProductAmmountContainer>
+                                        <ProductPrice>
+                                            ${item.price * item.qty}
+                                        </ProductPrice>
+                                    </PriceDetails>
+                                </Product>
+                                <Hr />
+                            </div>
+                        ))}
                     </Info>
                     <Summary>
                         <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ 90</SummaryItemPrice>
+                            <SummaryItemPrice>$ {(cart.total).toFixed(2)}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Estimated Shipping</SummaryItemText>
-                            <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+                            <SummaryItemPrice>$ {(cart.total * 0.05).toFixed(2)}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Shipping Discount</SummaryItemText>
-                            <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                            <SummaryItemPrice>$ -{(cart.total * 0.05).toFixed(2)}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ 90</SummaryItemPrice>
+                            <SummaryItemPrice>$ {(cart.total).toFixed(2)}</SummaryItemPrice>
                         </SummaryItem>
                         <Button>CHECKOUT NOW</Button>
                     </Summary>

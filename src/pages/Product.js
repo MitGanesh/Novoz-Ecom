@@ -6,8 +6,10 @@ import Announcement from "../components/Announcement"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import NewsLetter from "../components/NewsLetter"
+import { addProduct } from "../redux/CartRedux"
 import { mobile } from "../reponsive"
 import { publicReq } from "../reqMethods"
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div``
 
@@ -72,7 +74,7 @@ const FilterColor = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: ${props => props.color === 'white' ? '1px solid grey':'none'};
+    border: ${props => props.color === 'white' ? '1px solid grey' : 'none'};
     background-color: ${props => props.color};
     margin: 0px 5px;
     cursor: pointer;
@@ -128,6 +130,7 @@ const Product = () => {
     const [qty, setQty] = useState(1)
     const [color, setColor] = useState('');
     const [size, setSize] = useState('');
+    const dispatch = useDispatch();
 
     const handleQTy = (action) => {
         if (action === 'dec') {
@@ -143,7 +146,7 @@ const Product = () => {
         const getProduct = async () => {
             try {
                 const res = await publicReq.get(`/products/find/${productId}`);
-                console.log(res.data);
+                // console.log(res.data);
                 setProduct(res.data);
             } catch { }
         }
@@ -153,7 +156,8 @@ const Product = () => {
 
     const handleClick = () => {
         // Update our cart in db
-        console.log(color,size);
+        // console.log(color, size);
+        dispatch(addProduct({ ...product, qty, color, size }));
 
     }
 

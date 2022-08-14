@@ -2,16 +2,17 @@ import { Search, ShoppingCartOutlined } from '@mui/icons-material'
 import { Badge } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
-import {mobile} from '../reponsive'
+import { mobile } from '../reponsive'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     height: 60px;
 
     ${mobile({
-        height: '50px',
-    })}
+    height: '50px',
+})}
 `
-
 const Wrapper = styled.div`
     padding: 10px 20px;
     display: flex;
@@ -19,16 +20,14 @@ const Wrapper = styled.div`
     align-items: center;
 
     ${mobile({
-        padding: '10px 0px',
-    })}
+    padding: '10px 0px',
+})}
 `
-
 const Left = styled.div`
     flex: 1;
     display: flex;
     align-items: center;
 `
-
 const SearchContainer = styled.div`
     border: 0.5px solid lightgray;
     display: flex;
@@ -37,41 +36,39 @@ const SearchContainer = styled.div`
     padding: 5px;
 
     ${mobile({
-        marginLeft: '10px',
-    })}
+    marginLeft: '10px',
+})}
 `
-
 const Input = styled.input`
     border: none;
 
     ${mobile({
-        width: '50px',
-    })}
+    width: '50px',
+})}
 `
-
 const Logo = styled.h1`
     font-weight: bold;
     display: flex;
     justify-content: center;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
 
     ${mobile({
-        fontSize: '24px',
-    })}
+    fontSize: '24px',
+})}
 `
-
 const Language = styled.span`
     font-size: 14px;
     cursor: pointer;
 
     ${mobile({
-        display: 'none',
-    })}
+    display: 'none',
+})}
 `
-
 const Center = styled.div`
     flex: 1;
 `
-
 const Right = styled.div`
     flex: 1;
     display: flex;
@@ -79,24 +76,27 @@ const Right = styled.div`
     justify-content: flex-end;
 
     ${mobile({
-        justifyContent: 'center',
-        flex: 2,
-    })}
+    justifyContent: 'center',
+    flex: 2,
+})}
 `
-
 const MenuItem = styled.div`
     font-size: 14px;
     cursor: pointer;
     margin-left: 25px;
 
     ${mobile({
-        fontSize: '12px',
-        marginLeft: '10px',
-    })}
+    fontSize: '12px',
+    marginLeft: '10px',
+})}
 `
 
 
 const Navbar = () => {
+    const quantity = useSelector(state => state.cart.quantity);
+
+    console.log(quantity);
+
     return (
         <Container>
             <Wrapper>
@@ -105,23 +105,30 @@ const Navbar = () => {
                         EN
                     </Language>
                     <SearchContainer>
-                        <Input placeholder='Search'/>
-                        <Search style={{color:'grey',fontSize:18}} />
+                        <Input placeholder='Search' />
+                        <Search style={{ color: 'grey', fontSize: 18 }} />
                     </SearchContainer>
                 </Left>
                 <Center>
                     <Logo>
-                        NOVOZ.
+                        <Link to='/' style={{
+                            color: 'black',
+                            textDecoration: 'none'
+                        }}>
+                            NOVOZ.
+                        </Link>
                     </Logo>
                 </Center>
                 <Right>
                     <MenuItem>REGISTER</MenuItem>
                     <MenuItem>SIGN IN</MenuItem>
-                    <MenuItem>
-                        <Badge color="success" badgeContent={4}>
-                            <ShoppingCartOutlined />
-                        </Badge>
-                    </MenuItem>
+                    <Link to='/cart'>
+                        <MenuItem>
+                            <Badge color="success" badgeContent={quantity}>
+                                <ShoppingCartOutlined />
+                            </Badge>
+                        </MenuItem>
+                    </Link>
                 </Right>
             </Wrapper>
         </Container>
