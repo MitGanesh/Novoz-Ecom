@@ -95,7 +95,9 @@ const MenuItem = styled.div`
 const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity);
 
-    console.log(quantity);
+    const user = useSelector(state => state.user.currUser);
+
+    // console.log(quantity);
 
     return (
         <Container>
@@ -121,7 +123,7 @@ const Navbar = () => {
                 </Center>
                 <Right>
                     <MenuItem>REGISTER</MenuItem>
-                    <MenuItem>SIGN IN</MenuItem>
+                    <MenuItem>{user ? "LOGOUT" : "LOGIN"}</MenuItem>
                     <Link to='/cart'>
                         <MenuItem>
                             <Badge color="success" badgeContent={quantity}>

@@ -40,14 +40,14 @@ const Pay = () => {
                 })
 
                 console.log(res.data);
-            } catch (err) {
                 history('/success');
+            } catch (err) {
                 console.log(err);
             }
         };
 
         stripeToken && makeReq();
-    }, [stripeToken])
+    }, [stripeToken,history])
 
 
     return (

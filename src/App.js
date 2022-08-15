@@ -13,9 +13,10 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 function App() {
-  const user = true;
+  const user = useSelector(state => state.user.currUser);
 
   return (
     <BrowserRouter>

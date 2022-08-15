@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const Products = ({ cat, filter, sort }) => {
 
-  const [product, setProduct] = useState([]);;
+  const [product, setProduct] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
@@ -41,17 +41,18 @@ const Products = ({ cat, filter, sort }) => {
   }, [product, cat, filter])
 
   useEffect(() => {
-    if (sort === 'newest') {
+    if (sort === 'desc') {
       setFiltered((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt)
+        [...prev].sort((a, b) => b.price - a.price)
       );
+
     } else if (sort === 'asc') {
       setFiltered((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
     } else {
       setFiltered((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
+        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
     }
   }, [sort])
@@ -61,7 +62,7 @@ const Products = ({ cat, filter, sort }) => {
       {
         cat ? filtered.map((item) => (
           <Product key={item._id} item={item} />
-        )) : product.slice(0, 8).map((item) => (
+        )) : [...product].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 8).map((item) => (
           <Product key={item._id} item={item} />
         ))
       }

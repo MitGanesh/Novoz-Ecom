@@ -5,6 +5,12 @@ import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { mobile } from "../reponsive"
 import { useSelector } from 'react-redux'
+import StripeCheckout from 'react-stripe-checkout';
+import { useEffect, useState } from "react"
+import { userReq } from "../reqMethods"
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Container = styled.div``
 const Wrapper = styled.div`
@@ -149,8 +155,36 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const KEY = 'pk_test_51LWMTHSFIxOEzLJnwc8iymRjfQwkbMaQMTPIr6uhjedegqjXxs18eAZoGlyGMedLu70QSmZU9i97pAZ1YVcuUfHm008L34ZJuQ';
+
 const Cart = () => {
-    const cart = useSelector(state => state.cart)
+    const cart = useSelector(state => state.cart);
+
+    const [stripeToken, setStripeToken] = useState(null);
+    const history = useNavigate();
+
+    const onToken = (token) => {
+        setStripeToken(token);
+    }
+
+    useEffect(() => {
+        const makeReq = async () => {
+            try {
+                const res = await userReq.post('/checkout/payment', {
+                    tokenId: stripeToken.id,
+                    amount: cart.total * 100,
+                });
+                console.log(res.data);
+                history('/success');
+            } catch {
+
+            }
+        }
+
+        stripeToken && makeReq();
+
+    }, [stripeToken, cart.total, history])
+
 
     return (
         <Container>
@@ -169,7 +203,7 @@ const Cart = () => {
                 <Bottom>
                     <Info>
                         {cart.products.map(item => (
-                            <div>
+                            <div key={item._id}>
                                 <Product>
                                     <ProductDetails>
                                         <Image src={item.img} />
@@ -213,7 +247,18 @@ const Cart = () => {
                             <SummaryItemText>Total</SummaryItemText>
                             <SummaryItemPrice>$ {(cart.total).toFixed(2)}</SummaryItemPrice>
                         </SummaryItem>
-                        <Button>CHECKOUT NOW</Button>
+                        <StripeCheckout
+                            name="NOVOZ E-COM Co."
+                            image="https://i.ibb.co/N1pMCHS/logo.jpg"
+                            billingAddress
+                            shippingAddress
+                            description={`Total payable is $ ${cart.total}`}
+                            amount={cart.total * 100}
+                            token={onToken}
+                            stripeKey={KEY}
+                        >
+                            <Button>CHECKOUT NOW</Button>
+                        </StripeCheckout>
                     </Summary>
                 </Bottom>
             </Wrapper>

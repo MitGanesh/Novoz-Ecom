@@ -1,3 +1,4 @@
+// import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -23,7 +24,7 @@ const Button = styled.button`
 const Image = styled.img`
     width: 200px;
     height: 200px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     margin-bottom: 30px;
 `
 const Desc = styled.div`
@@ -34,6 +35,9 @@ const Desc = styled.div`
 const URL = "https://i.ibb.co/N1pMCHS/logo.jpg";
 
 const Success = () => {
+    // const location = useLocation();
+    // console.log(location);
+
     return (
         <Container>
             <Image src={URL}/>
