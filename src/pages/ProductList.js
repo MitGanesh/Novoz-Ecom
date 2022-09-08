@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 import Announcement from "../components/Announcement"
@@ -39,8 +39,8 @@ const Select = styled.select`
     margin-right: 20px;
 
     ${mobile({
-        margin: '10px 5px',
-    })}
+    margin: '10px 5px',
+})}
 `
 const Option = styled.option``
 
@@ -58,6 +58,12 @@ const ProductList = () => {
             [e.target.name]: val,
         })
     }
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+        
+    }, [location.pathname])
+
 
     // console.log(cat);
     // console.log(sort);

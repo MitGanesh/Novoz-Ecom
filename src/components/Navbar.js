@@ -3,8 +3,11 @@ import { Badge } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
 import { mobile } from '../reponsive'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import '../App.css';
+import { logout } from '../redux/apiCalls'
+
 
 const Container = styled.div`
     height: 60px;
@@ -85,6 +88,7 @@ const MenuItem = styled.div`
     cursor: pointer;
     margin-left: 25px;
 
+
     ${mobile({
     fontSize: '12px',
     marginLeft: '10px',
@@ -94,10 +98,18 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity);
-
     const user = useSelector(state => state.user.currUser);
+    const dispatch = useDispatch();
 
     // console.log(quantity);
+    const handleLogout = () => {
+        if (user) {
+            // console.log("User Loged IN");
+            logout(dispatch);
+        } else {
+            // console.log("Log out User");
+        }
+    }
 
     return (
         <Container>
@@ -113,17 +125,18 @@ const Navbar = () => {
                 </Left>
                 <Center>
                     <Logo>
-                        <Link to='/' style={{
-                            color: 'black',
-                            textDecoration: 'none'
-                        }}>
+                        <Link to='/' className='normal'>
                             NOVOZ.
                         </Link>
                     </Logo>
                 </Center>
                 <Right>
-                    <MenuItem>REGISTER</MenuItem>
-                    <MenuItem>{user ? "LOGOUT" : "LOGIN"}</MenuItem>
+                    {!user && <Link to='/register' className='normal'>
+                        <MenuItem>REGISTER</MenuItem>
+                    </Link>}
+                    <Link to='/login' className='normal'>
+                        <MenuItem onClick={handleLogout}>{user ? "LOGOUT" : "LOGIN"}</MenuItem>
+                    </Link>
                     <Link to='/cart'>
                         <MenuItem>
                             <Badge color="success" badgeContent={quantity}>

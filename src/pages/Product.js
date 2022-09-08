@@ -8,8 +8,9 @@ import Navbar from "../components/Navbar"
 import NewsLetter from "../components/NewsLetter"
 import { addProduct } from "../redux/cartRedux"
 import { mobile } from "../reponsive"
-import { publicReq } from "../reqMethods"
+// import { publicReq } from "../reqMethods"
 import { useDispatch } from 'react-redux';
+import { products } from "../data"
 
 const Container = styled.div``
 
@@ -132,6 +133,11 @@ const Product = () => {
     const [size, setSize] = useState('');
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+
+    }, [location.pathname])
+
     const handleQTy = (action) => {
         if (action === 'dec') {
             if (qty > 1) {
@@ -145,9 +151,14 @@ const Product = () => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const res = await publicReq.get(`/products/find/${productId}`);
+                // If backend sever is running then use this 
+                // const res = await publicReq.get(`/products/find/${productId}`);
                 // console.log(res.data);
-                setProduct(res.data);
+                // setProduct(res.data);
+
+                // Only handing by static data
+                const newArr = products.filter(item => item._id === productId);
+                setProduct(newArr[0]);
             } catch { }
         }
 
@@ -158,7 +169,6 @@ const Product = () => {
         // Update our cart in db
         // console.log(color, size);
         dispatch(addProduct({ ...product, qty, color, size }));
-
     }
 
 

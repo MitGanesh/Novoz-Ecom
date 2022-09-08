@@ -1,7 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { products } from "../data";
 import Product from "./Product";
+
 
 const Container = styled.div`
     padding: 20px;
@@ -11,6 +13,7 @@ const Container = styled.div`
 `
 
 const Products = ({ cat, filter, sort }) => {
+  
 
   const [product, setProduct] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -18,10 +21,13 @@ const Products = ({ cat, filter, sort }) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(cat ? `http://localhost:5000/api/products?category=${cat}` : 'http://localhost:5000/api/products');
-
+        // ******* Run Only when bankend server is running *******
+        // const res = await axios.get(cat ? `http://localhost:5000/api/products?category=${cat}` : 'http://localhost:5000/api/products');
         // console.log(res.data);
-        setProduct(res.data);
+        // setProduct(res.data);
+
+        // ******* Handling static data *******
+        setProduct(products);
       } catch (err) {
         console.log(err);
       }

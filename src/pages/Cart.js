@@ -4,11 +4,12 @@ import Announcement from "../components/Announcement"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 import { mobile } from "../reponsive"
-import { useSelector } from 'react-redux'
-import StripeCheckout from 'react-stripe-checkout';
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from "react"
 import { userReq } from "../reqMethods"
 import { useNavigate } from 'react-router-dom';
+import StripeCheckout from 'react-stripe-checkout';
+import { removeProduct } from "../redux/cartRedux"
 
 
 
@@ -159,6 +160,7 @@ const KEY = 'pk_test_51LWMTHSFIxOEzLJnwc8iymRjfQwkbMaQMTPIr6uhjedegqjXxs18eAZoGl
 
 const Cart = () => {
     const cart = useSelector(state => state.cart);
+    const dispatch = useDispatch();
 
     const [stripeToken, setStripeToken] = useState(null);
     const history = useNavigate();
@@ -180,10 +182,12 @@ const Cart = () => {
 
             }
         }
-
         stripeToken && makeReq();
-
     }, [stripeToken, cart.total, history])
+
+    const emptyCart = () => {
+        dispatch(removeProduct());
+    }
 
 
     return (
@@ -198,7 +202,7 @@ const Cart = () => {
                         <Toptext>Shopping Bag({cart.quantity})</Toptext>
                         <Toptext>Your Whishlist(0)</Toptext>
                     </Toptexts>
-                    <TopButton type="filled">CHECKOUT NOW</TopButton>
+                    <TopButton type="filled" onClick={emptyCart} >REMOVE ITEMS</TopButton>
                 </Top>
                 <Bottom>
                     <Info>

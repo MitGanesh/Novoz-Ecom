@@ -1,3 +1,6 @@
+import axios from "axios"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { mobile } from "../reponsive"
 
@@ -17,8 +20,8 @@ const Wrapper = styled.div`
     background-color: white;
 
     ${mobile({
-        width: '75%',
-    })}
+    width: '75%',
+})}
 `
 const Title = styled.h1`
     font-size: 28px;
@@ -48,22 +51,52 @@ const Button = styled.button`
 `
 
 const Register = () => {
+    const [userData, setUserData] = useState({
+        name: '',
+        lastname: '',
+        username: '',
+        email: '',
+        password: '',
+        cpassword: '',
+    });
+
+    const handelCh = (e) => {
+        setUserData({ ...userData, [e.target.name]: e.target.value })
+    }
+
+    const navigate = useNavigate();
+
+    const registerUser = async (data) => {
+        try {
+            const res = await axios.post('http://localhost:5000/api/auth/register', data);
+            console.log(res.data);
+            navigate('/login');
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handelClick = (e) => {
+        e.preventDefault();
+        registerUser(userData);
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
                 <Form>
-                    <Input placeholder="name" />
-                    <Input placeholder="last name" />
-                    <Input placeholder="username" />
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Input placeholder="confirm password" />
+                    <Input name="name" type='text' placeholder="Name" onChange={handelCh} />
+                    <Input name="lastname" type='text' placeholder="Last name" onChange={handelCh} />
+                    <Input name="username" type='text' placeholder="username" onChange={handelCh} />
+                    <Input name="email" type='text' placeholder="email" onChange={handelCh} />
+                    <Input name="password" type='password' placeholder="password" onChange={handelCh} />
+                    <Input name="cpassword" type='password' placeholder="confirm password" onChange={handelCh} />
                     <Agreement>
                         By creating an account, I consent to the processing of my personal
                         data in accordance with the <b>PRIVACY POLICY</b>
                     </Agreement>
-                    <Button>CREATE</Button>
+                    <Button onClick={handelClick}>CREATE</Button>
                 </Form>
             </Wrapper>
         </Container>

@@ -120,10 +120,10 @@ const Footer = () => {
             <Right>
                 <Title>Contact</Title>
                 <ContactItem>
-                    <Room style={{ marginRight: "10px" }} /> 622 Dixie Path , South Tobinchester
+                    <Room style={{ marginRight: "10px" }} /> 1234 Morris Street, Texas(TX)
                 </ContactItem>
                 <ContactItem>
-                    <Phone style={{ marginRight: "10px" }} /> +91 255 66666
+                    <Phone style={{ marginRight: "10px" }} /> 830-344-9869
                 </ContactItem>
                 <ContactItem>
                     <MailOutline style={{ marginRight: "10px" }} /> contact@novoz.com

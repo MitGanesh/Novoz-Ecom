@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { login } from "../redux/apiCalls"
 import { mobile } from "../reponsive"
@@ -52,13 +53,13 @@ const Button = styled.button`
         cursor: not-allowed;
     }
 `
-const Link = styled.a`
+const Clink = styled.a`
+    color: black;
     margin: 5px 0px;
     font-size: 12px;
     text-decoration: underline;
     cursor: pointer;
 `
-
 const Error = styled.span`
     font-size: 16px;
     color: red;
@@ -74,21 +75,26 @@ const Login = () => {
         e.preventDefault();
         // console.log(username)
         // console.log(password)
-
         login(dispatch, { username, password });
     }
 
     return (
         <Container>
             <Wrapper>
-                <Title>SIGN IN</Title>
+                <Title>LOG IN</Title>
                 <Form>
                     <Input type='text' placeholder="username" onChange={(e) => setUsername(e.target.value)} />
                     <Input type='password' placeholder="password" onChange={(e) => setPassword(e.target.value)} />
                     <Button onClick={handleLogin} disabled={isFetching} >LOGIN</Button>
                     {error && <Error>Something went wrong...</Error>}
-                    <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-                    <Link>CREATE A NEW ACCOUNT</Link>
+                    <Clink>FORGOT PASSWORD?</Clink>
+                    <Link to='/register' style={{
+                        color: 'black',
+                        margin: '5px 0px',
+                        fontSize: '12px',
+                        textDecoration: 'underline',
+                        cursor: 'pointer',
+                    }}>CREATE A NEW ACCOUNT</Link>
                 </Form>
             </Wrapper>
         </Container>
